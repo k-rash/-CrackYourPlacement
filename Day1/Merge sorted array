@@ -1,0 +1,13 @@
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        mn=m+n
+        for i in range(m,mn):
+            nums1[i]=nums2[mn-i-1]
+        nums1=nums1.sort()                       
+
+                       
+                    
+                    
+                    
+
+        
