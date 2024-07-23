@@ -1,0 +1,8 @@
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dup=head
+        while dup:
+            while dup.next and dup.val==dup.next.val:
+                dup.next=dup.next.next
+            dup=dup.next
+        return head        
