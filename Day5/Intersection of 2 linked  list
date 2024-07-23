@@ -1,0 +1,7 @@
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        hA,hB=headA,headB
+        while hA!=hB:
+            hA=hA.next if hA else headB
+            hB=hB.next if hB else headA
+        return hA   
