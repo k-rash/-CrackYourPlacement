@@ -1,9 +1,0 @@
-class Solution:
-    def findMinDiff(self, A,N,M):
-        # code here
-        
-        A=sorted(A)
-        ans=max(A)-min(A)
-        for i in range(N-M+1):
-            ans=min(ans,A[M+i-1]-A[i])
-        return ans    
