@@ -1,0 +1,13 @@
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        pans,res=0,0
+        dcnt=defaultdict(int)
+        dcnt[0]=1
+        for i in nums:
+            pans+=i
+            rem=pans%k
+            if rem in dcnt:
+                res+=dcnt[rem]
+            dcnt[rem]+=1
+        return res              
+        
