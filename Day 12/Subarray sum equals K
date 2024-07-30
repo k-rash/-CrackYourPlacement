@@ -1,0 +1,13 @@
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        res=0
+        psum=0
+        pre={0:1}
+        for i in nums:
+            psum+=i
+            diff=psum-k
+            res+=pre.get(diff,0)
+            pre[psum]=1+pre.get(psum,0)
+        return res    
+
+        
