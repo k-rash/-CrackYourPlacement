@@ -1,0 +1,20 @@
+class Solution:
+    def maxDistance(self, grid: List[List[int]]) -> int:
+        lq=len(grid)
+        q=deque()
+        for i in range(lq):
+            for j in range(lq):
+                if grid[i][j]:
+                    q.append([i,j])
+        ans=-1
+        dire=[[0,1],[1,0],[0,-1],[-1,0]]
+        while q:
+            r,c=q.popleft()
+            ans=grid[r][c]
+            for i,j in dire:
+                R,C=r+i,c+j
+                if (min(R,C)>=0 and max(R,C)<lq and grid[R][C]==0):
+                    q.append([R,C])
+                    grid[R][C]=grid[r][c]+1
+        return ans-1 if ans>1 else -1                            
+        
