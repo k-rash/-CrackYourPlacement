@@ -1,0 +1,14 @@
+class Solution:
+    def numOfMinutes(self, n: int, headID: int, manager: List[int], informTime: List[int]) -> int:
+        coll=collections.defaultdict(list)
+        for i in range(n):
+            coll[manager[i]].append(i)
+        q=deque([(headID,0)])  
+        ans=0
+        while q:
+            i,t=q.popleft()
+            ans=max(ans,t)
+            for j in coll[i]:
+                q.append((j,t+informTime[i]))
+        return ans          
+        
