@@ -1,0 +1,18 @@
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        lg=len(graph)
+        s={}
+        def dfs(i):
+            if i in s:
+                return s[i]
+            s[i]=False
+            for n in graph[i]:
+                if not dfs(n):
+                    return s[i]
+            s[i]=True
+            return s[i]
+        ans=[]
+        for i in range(lg):
+            if dfs(i):
+                ans.append(i)
+        return ans                        
