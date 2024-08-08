@@ -1,0 +1,14 @@
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        p=[float("inf")]*n
+        p[src]=0
+        for i in range(k+1):
+            tmp=p.copy()
+            for s,d,v in flights:
+                if p[s]==float("inf"):
+                    continue
+                if p[s]+v<tmp[d]:
+                    tmp[d]=p[s]+v
+            p=tmp
+        return -1 if p[dst]==float("inf") else p[dst]              
+        
