@@ -1,0 +1,27 @@
+class Solution:
+    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
+        adj=defaultdict(list)
+        for v1,v2,dist in edges:
+            adj[v1].append((v2,dist))
+            adj[v2].append((v1,dist))
+
+        def djk(s):
+            heap=[(0,s)] 
+            v=set()
+            while heap:
+                dist,node=heapq.heappop(heap)
+                if node in v:
+                    continue
+                v.add(node)
+                for n,d2 in adj[node]:
+                    t=dist+d2
+                    if t<=distanceThreshold:
+                        heapq.heappush(heap,(t,n))
+            return len(v)-1
+
+        res,mcnt=-1,n
+        for i in range(n):
+            cnt=djk(i)
+            if cnt<=mcnt:
+                res,mcnt=i,cnt
+        return res                               
