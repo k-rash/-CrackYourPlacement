@@ -1,0 +1,25 @@
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        adj=collections.defaultdict(list)
+        for i, n in enumerate(equations):
+            o,t=n
+            adj[o].append([t,values[i]])
+            adj[t].append([o,1/values[i]])
+
+        def bfs(s,t):
+            if s not in adj or t not in adj:
+                return -1
+            q,v=deque(),set()
+            q.append([s,1])
+            v.add(s)
+            while q:
+                n,w=q.popleft() 
+                if n==t:
+                    return w 
+                for i,w1 in adj[n]:
+                    if i not in v:
+                        q.append([i,w*w1])
+                        v.add(i)
+            return -1
+        return [bfs(q[0],q[1]) for q in queries]            
+        
