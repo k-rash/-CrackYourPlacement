@@ -1,0 +1,41 @@
+class trienode:
+    def __init__(self):
+        self.children={}
+        self.word=False
+class WordDictionary:
+    def __init__(self):
+        self.start=trienode()
+
+    def addWord(self, word: str) -> None: 
+        cur=self.start
+        for i in word:
+            if i not in cur.children:
+                cur.children[i]=trienode()
+            cur=cur.children[i]
+        cur.word=True    
+
+    def search(self, word: str) -> bool:
+        def dfs(j,r):
+            cur=r
+            for i in range(j,len(word)):
+                c=word[i]
+                if c==".":
+                    for ch in cur.children.values():
+                        if dfs(i+1,ch):
+                            return True
+                    return False    
+
+                else:
+                    if c not in cur.children:
+                        return False
+                    cur=cur.children[c]
+            return cur.word   
+        return dfs(0,self.start)                 
+                                        
+        
+
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
