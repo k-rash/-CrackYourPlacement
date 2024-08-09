@@ -1,0 +1,25 @@
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        par=[i for i in range(len(edges)+1)]
+        rank=[1]*(len(edges)+1)
+        def findpar(n):
+            p=par[n]
+            while p!=par[p]:
+                par[p]=par[par[p]]
+                p=par[p]
+            return p
+        def comb(n1,n2):
+            v1,v2=findpar(n1),findpar(n2)
+            if v1==v2:
+                return False
+            if rank[v1]>rank[v2]:
+                par[v2]=v1
+                rank[v1]+=rank[v2]
+            else:
+                par[v1]=v2
+                rank[v2]+=rank[v1]
+            return True
+        for n1,n2 in edges:
+            if not comb(n1,n2):
+                    return [n1,n2]
+                    
