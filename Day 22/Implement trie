@@ -1,0 +1,40 @@
+class trienode:
+    def __init__(self):
+        self.children={}
+        self.word=False
+
+class Trie:
+    def __init__(self):
+        self.start=trienode()
+
+    def insert(self, word: str) -> None:
+        cur=self.start
+        for i in word:
+            if i not in cur.children:
+                cur.children[i]=trienode()
+            cur=cur.children[i]
+        cur.word=True        
+
+    def search(self, word: str) -> bool:
+        cur=self.start
+        for i in word:
+            if i not in cur.children:
+                return False
+            cur=cur.children[i]
+        return cur.word        
+
+    def startsWith(self, prefix: str) -> bool:
+        cur=self.start
+        for i in prefix:
+            if i not in cur.children:
+                return False
+            cur=cur.children[i]
+        return True        
+        
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
