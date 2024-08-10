@@ -1,0 +1,15 @@
+class Solution:
+    def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:
+        st=[]
+        for i in range(len(heights)-1):
+            rem=heights[i+1]-heights[i]
+            if rem<=0:
+                continue
+            bricks-=rem
+            heapq.heappush(st,-rem)
+            if bricks<0:
+                if ladders==0:
+                    return i
+                ladders-=1    
+                bricks+=-heapq.heappop(st)    
+        return len(heights)-1                            
