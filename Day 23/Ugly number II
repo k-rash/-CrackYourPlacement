@@ -1,0 +1,17 @@
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        uglylist=[1]
+        twopt,threept,fivept=0,0,0
+        while len(uglylist)<n:
+            divbytwo=uglylist[twopt]*2
+            divbythree=uglylist[threept]*3
+            divbyfive=uglylist[fivept]*5
+            mini=min(divbytwo,divbythree,divbyfive) 
+            uglylist.append(mini)
+            if mini==divbytwo:
+                twopt+=1
+            if mini==divbythree:
+                threept+=1
+            if mini==divbyfive:
+                fivept+=1
+        return uglylist[-1]                      
