@@ -1,0 +1,19 @@
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+        ct=Counter(s)
+        mp=[[-cnt,ch]for ch,cnt in ct.items()]
+        heapq.heapify(mp)
+        pre=None
+        ans=""
+        while mp or pre:
+            if pre and not mp:
+                return ""
+            cnt,ch=heapq.heappop(mp)
+            ans+=ch
+            cnt+=1
+            if pre:
+                heapq.heappush(mp,pre)
+                pre=None
+            if cnt!=0:
+                pre=[cnt,ch]
+        return ans                       
