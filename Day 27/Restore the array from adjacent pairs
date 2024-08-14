@@ -1,0 +1,21 @@
+class Solution:
+    def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
+        def dfs(u):
+            ans.append(u)
+            visit.add(u)
+            for v in g[u]:
+                if v not in visit:
+                    dfs(v)
+
+        g=collections.defaultdict(list)
+        for i,j in adjacentPairs:
+            g[i].append(j)
+            g[j].append(i)
+        for k,v in g.items():
+            if len(v)==1:
+                st=k
+                break
+        visit=set()        
+        ans=[]        
+        dfs(st)  
+        return ans      
