@@ -1,0 +1,14 @@
+class Solution:
+    def minDeletions(self, s: str) -> int:
+        cnt=collections.defaultdict(int)
+        uf=set()
+        ans=0
+        for i in s:
+            cnt[i]+=1
+        for c,f in cnt.items():
+            while f>0 and f in uf:
+                f-=1
+                ans+=1
+            uf.add(f)
+        return ans               
+        
