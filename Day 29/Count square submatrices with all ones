@@ -1,0 +1,17 @@
+class Solution:
+    def countSquares(self, matrix: List[List[int]]) -> int:
+        m=len(matrix)
+        n=len(matrix[0])
+        cnt=[1]*n
+        res,topleft=0,0
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j]==1:
+                    top=0 if i==0 else cnt[j]
+                    left=0 if j==0 else cnt[j-1]
+                    cnt[j]=1+min(top,left,topleft)
+                    res+=cnt[j]
+                    topleft=0 if j==n-1 else top
+                else:
+                    cnt[j]=0  
+        return res            
