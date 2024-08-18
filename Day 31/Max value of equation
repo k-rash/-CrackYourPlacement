@@ -1,0 +1,14 @@
+class Solution:
+    def findMaxValueOfEquation(self, points: List[List[int]], k: int) -> int:
+        hp=[]
+        ans=float("-inf")
+        for x,y in points:
+            while hp and hp[0][1]<x-k:
+                heapq.heappop(hp)
+            if hp:
+                ans=max(ans,x+y-hp[0][0])
+            heapq.heappush(hp,((x-y),x))
+        return ans            
+                            
+
+        
