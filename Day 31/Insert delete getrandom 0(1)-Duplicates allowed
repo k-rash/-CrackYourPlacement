@@ -1,0 +1,33 @@
+class RandomizedCollection:
+
+    def __init__(self):
+        self.hash=collections.defaultdict(set)
+        self.list=[]
+
+    def insert(self, val: int) -> bool:
+        self.hash[val].add(len(self.list))
+        self.list.append(val)
+        return len(self.hash[val])==1
+
+    def remove(self, val: int) -> bool:
+        if not self.hash[val]:
+            return False
+        else:
+            lastnum=self.list[-1]
+            ind=self.hash[val].pop()
+            self.list[ind]=lastnum
+            self.hash[lastnum].add(ind)
+            self.hash[lastnum].discard(len(self.list)-1)
+            self.list.pop()
+            return True    
+
+    def getRandom(self) -> int:
+        return random.choice(self.list)
+        
+
+
+# Your RandomizedCollection object will be instantiated and called as such:
+# obj = RandomizedCollection()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
