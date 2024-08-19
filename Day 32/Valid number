@@ -1,0 +1,41 @@
+class Solution:
+    def isNumber(self, s: str) -> bool:
+        dec=False
+        num=False
+        i=0
+        if s[i] in ['-','+']:
+            i+=1
+        while i<len(s):
+            cur=s[i]
+            if cur.isalpha():
+                if cur not in ['e','E']:
+                    return False
+                else:
+                    return num and self.is_digit(s[i+1:])  
+            elif cur=='.':
+                if dec:
+                    return False
+                else:
+                    dec=True
+            elif cur in ['-','+']:
+                return False
+            else:
+                num=True
+            i+=1
+        return num
+
+    def is_digit(self,ss):
+        if not ss:
+            return False
+        num=False
+        i=0 
+        if ss[i] in ['-','+']:
+            i+=1
+        while i<len(ss):
+            cur=ss[i]
+            if not cur.isdigit():
+                return False
+            else:
+                num=True
+            i+=1
+        return num                                                              
