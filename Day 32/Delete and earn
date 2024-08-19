@@ -1,0 +1,17 @@
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        cnt=Counter(nums)
+        nums=sorted(list(set(nums)))
+        e1,e2=0,0
+        for i in range(len(nums)):
+            cur=nums[i]*cnt[nums[i]]
+            if i>0 and nums[i]==nums[i-1]+1:
+                tmp=e2
+                e2=max(cur+e1,e2)
+                e1=tmp
+            else:
+                tmp=e2
+                e2=cur+e2
+                e1=tmp
+        return e2            
+
