@@ -1,0 +1,16 @@
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        dic={}
+        def subs(i,j):
+            if j==len(t):
+                return 1
+            if i==len(s):
+                return 0
+            if (i,j) in dic:
+                return dic[(i,j)]
+            if s[i]==t[j]:
+                dic[(i,j)]=subs(i+1,j+1)+subs(i+1,j)  
+            else:    
+                dic[(i,j)]=subs(i+1,j)
+            return dic[(i,j)]
+        return subs(0,0)                  
