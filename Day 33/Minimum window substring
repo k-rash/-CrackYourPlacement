@@ -1,0 +1,25 @@
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if t=="":
+            return 
+        cnt,wind={},{}
+        for i in t:
+            cnt[i]=1+cnt.get(i,0)
+        hve,need=0,len(cnt)
+        res,reslen=[-1,-1],float("inf")
+        l=0
+        for r in range(len(s)):
+            c=s[r]
+            wind[c]=1+wind.get(c,0)
+            if c in cnt and wind[c]==cnt[c]:
+                hve+=1
+            while hve==need:
+                if (r-l+1)<reslen:
+                    res=[l,r]
+                    reslen=(r-l+1)
+                wind[s[l]]-=1
+                if s[l] in cnt and wind[s[l]]<cnt[s[l]]:
+                    hve-=1
+                l+=1
+        l,r=res                            
+        return s[l:r+1] if reslen!=float("inf") else ""
