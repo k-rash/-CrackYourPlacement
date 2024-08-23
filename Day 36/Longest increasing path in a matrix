@@ -1,0 +1,27 @@
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        rl,cl=len(matrix),len(matrix[0])
+        cache={}
+        def path(r,c,pre):
+            if r<0 or c<0 or r>=rl or c>=cl or matrix[r][c]<=pre:
+                return 0
+            if (r,c) in cache:
+                return cache[(r,c)]    
+            res=1
+            res=max(res,1+path(r+1,c,matrix[r][c])) 
+            res=max(res,1+path(r-1,c,matrix[r][c])) 
+            res=max(res,1+path(r,c+1,matrix[r][c])) 
+            res=max(res,1+path(r,c-1,matrix[r][c])) 
+            cache[(r,c)]=res
+            return res
+
+        for i in range (rl):
+            for j in range (cl):
+                path(i,j,-1)
+        return max(cache.values())             
+               
+
+
+
+    
+        
