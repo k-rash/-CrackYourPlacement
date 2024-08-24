@@ -1,0 +1,16 @@
+class Solution:
+    def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
+        pq = []
+        stations.append((target, -1))
+        ref = 0
+        pre_loc = 0
+        for loc, fuel in stations:
+            startFuel -= loc - pre_loc
+            while pq and startFuel < 0:
+                startFuel += -heapq.heappop(pq)
+                ref += 1
+            if startFuel < 0:
+                return -1
+            heapq.heappush(pq, -fuel)
+            pre_loc = loc
+        return ref
