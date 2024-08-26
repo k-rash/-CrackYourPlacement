@@ -1,0 +1,16 @@
+class Solution:
+    def uniquePerms(self, arr, n):
+        # code here 
+        ans,d=[],{}
+        def bt(i,j):
+            if i==n:
+                if not d.get(tuple(j)):
+                    ans.append(j.copy())
+                    d[tuple(j)]=True
+                return
+            for k in range(i,n):
+                j[i],j[k]=j[k],j[i]
+                bt(i+1,arr)
+                j[i],j[k]=j[k],j[i]
+        bt(0,arr)
+        return sorted(ans)
