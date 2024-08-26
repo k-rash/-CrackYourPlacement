@@ -1,0 +1,12 @@
+class Solution:
+    def dfsOfGraph(self, V, adj):
+        def dfs(i,adj,ans,vis):
+            vis[i]=True
+            ans.append(i)
+            for j in adj[i]:
+                if (vis[j]==False):
+                    dfs(j,adj,ans,vis)
+        ans=[]
+        vis=[False]*V
+        dfs(0,adj,ans,vis)
+        return ans
