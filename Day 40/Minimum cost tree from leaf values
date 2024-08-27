@@ -1,0 +1,13 @@
+class Solution:
+    def mctFromLeafValues(self, arr: List[int]) -> int:
+        st,ans= [float('inf')],0
+        for i in arr:
+            while st and st[-1] <= i:
+                cur = st.pop()
+                if st:
+                    ans += cur * min(st[-1], i)
+            st.append(i)
+        while len(st) > 2:
+            ans += st.pop() * st[-1]
+        return ans
+        
