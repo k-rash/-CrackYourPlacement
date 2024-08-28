@@ -1,0 +1,17 @@
+class Solution:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        n,st,ans=len(arr),[],0
+        dp=[0]*n
+        mod=10**9+7
+        for i in range(n):
+            while st and arr[i]<=arr[st[-1]]:st.pop()
+            if st:
+                j=st[-1]
+                dp[i]=dp[j]+arr[i]*(i-j)
+            else:
+                dp[i]=arr[i]*(i+1)
+            st.append(i) 
+            ans=(ans+dp[i])%mod
+        return ans                   
+
+        
