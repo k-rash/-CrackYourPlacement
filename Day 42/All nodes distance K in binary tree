@@ -1,0 +1,31 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        def getpar(node, par):
+            if node is None:
+                return 
+
+            pmap[node] = par
+            getpar(node.left, node)
+            getpar(node.right, node)
+        
+        def getnod(node, cnt):
+            if not node or node in seen or cnt > k:
+                return 
+            seen.add(node)
+            if cnt == k:
+                ans.append(node.val) 
+            getnod(node.left, cnt + 1)
+            getnod(node.right, cnt + 1)
+            getnod(pmap[node], cnt + 1)
+
+        pmap,seen,ans = {} ,set(),[]
+        getpar(root, None) 
+        getnod(target, 0) 
+        return ans
