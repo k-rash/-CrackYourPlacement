@@ -1,0 +1,28 @@
+class Solution:
+    def shortestBridge(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        i, j = next((i, j) for i in range(m) for j in range(n) if grid[i][j])
+         
+        st= [(i, j)] 
+        v=set(st)
+        while st: 
+            i, j = st.pop()
+            v.add((i, j))  
+            for ii, jj in (i-1, j), (i, j-1), (i, j+1), (i+1, j): 
+                if 0 <= ii < m and 0 <= jj < n and grid[ii][jj] and (ii, jj) not in v: 
+                    st.append((ii, jj))
+                    v.add((ii, jj))
+        
+        ans = 0
+        q = list(v)
+        while q:
+            newq = []
+            for i, j in q: 
+                for ii, jj in (i-1, j), (i, j-1), (i, j+1), (i+1, j): 
+                    if 0 <= ii < m and 0 <= jj < n and (ii, jj) not in v: 
+                        if grid[ii][jj] == 1: return ans 
+                        newq.append((ii, jj))
+                        v.add((ii, jj))
+            q = newq
+            ans += 1
+        
