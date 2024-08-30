@@ -1,0 +1,25 @@
+class Solution:
+    def makeConnected(self, n: int, connections: List[List[int]]) -> int:
+        par = list(range(n))
+        self.cnt = n
+        self.red= 0
+        def find(x):
+            if x != par[x]:
+                par[x] = find(par[x])
+            return par[x]
+        def union(x,y):
+            rtx = find(x)
+            rty = find(y)
+            if rtx != rty:
+                par[rtx] = rty
+                self.cnt -= 1
+            else:
+                self.red +=1
+        
+        for x, y in connections:
+            union(x, y)
+        
+        if self.red >= self.cnt - 1:
+            return self.cnt - 1
+        else:
+            return -1
