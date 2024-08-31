@@ -1,0 +1,31 @@
+class Solution:
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        dic = collections.defaultdict(list)
+        for c in connections:
+            u, v = c
+            dic[u].append(v)
+            dic[v].append(u)    
+        
+        timer = 0
+        dep, low, par, vis = [float("inf")]*n, [float("inf")]*n, [float("inf")]*n, [False]*n
+        ans = []
+        
+        def find(u):
+            nonlocal timer    
+            vis[u] = True
+            dep[u], low[u] = timer, timer
+            timer += 1
+            
+            for v in dic[u]:          
+                if not vis[v]:
+                    par[v] = u
+                    find(v)
+                    if low[v]>dep[u]:
+                        ans.append([u,v])
+                
+                if par[u]!=v:
+                    low[u] = min(low[u], low[v])
+                
+        find(0)
+        return ans
+        
