@@ -1,0 +1,12 @@
+class Solution:
+    def superEggDrop(self, k: int, n: int) -> int:
+        @cache
+        def supegg(K, N):
+            if K == 1: return N
+            if K >= N: return pow(2, N) - 1
+            return supegg(K-1, N-1) + supegg(K, N-1) + 1
+
+        for i in range(int(log(n, 2))+1, n+1):
+            if supegg(k, i) >= n:
+                return i
+        
