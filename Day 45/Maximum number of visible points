@@ -1,0 +1,21 @@
+class Solution:
+    def visiblePoints(self, points: List[List[int]], angle: int, location: List[int]) -> int:
+        x,y = location
+        to_360 = lambda angl: 180 + angl * 180 / pi
+        onpt,maxx ,deg=0,0,[]
+        for i,j in points:
+            if [i,j] == location: 
+                onpt += 1
+                continue
+            deg1 = to_360(atan2(j - y, i - x))
+            deg.append(deg1)
+            if deg1 <= angle:
+                deg.append(deg1 + 360)
+        
+        deg.sort()
+        lt = 0
+        for r in range(len(deg)):
+            while deg[r] - deg[lt] > angle:
+                lt += 1
+            maxx = max(maxx, r - lt + 1)            
+        return maxx + onpt
