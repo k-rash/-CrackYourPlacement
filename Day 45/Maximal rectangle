@@ -1,0 +1,20 @@
+class Solution:
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        if not matrix:
+            return 0
+
+        n,maxx = len(matrix[0]),0
+        heig = [0] * (n + 1)
+
+        for r in matrix:
+            for i in range(n):
+                heig[i] = heig[i] + 1 if r[i] == '1' else 0
+            st = [-1]
+            for i in range(n + 1):
+                while heig[i] < heig[st[-1]]:
+                    h = heig[st.pop()]
+                    w = i - 1 - st[-1]
+                    maxx = max(maxx, h * w)
+                st.append(i)
+        return maxx
+        
